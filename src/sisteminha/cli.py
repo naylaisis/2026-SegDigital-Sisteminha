@@ -43,6 +43,7 @@ def main() -> None:
         print("[3] Alterar nome de usuário")
         print("[4] Mudar senha")
         print("[5] Remover usuário")
+        print("[6] Login")
         print("[0] Sair")
         try:
             opcao = int(input())
@@ -60,6 +61,8 @@ def main() -> None:
                 service.mudar_senha()
             case 5:
                 service.remover_usuario()
+            case 6:
+                service.login()
             case 0:
                 break
             case _:

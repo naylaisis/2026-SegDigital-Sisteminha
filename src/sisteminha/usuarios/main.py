@@ -2,6 +2,7 @@ from ..database.main import DatabaseService
 from ..models import Usuario
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlite3 import IntegrityError, OperationalError
+from tabulate import tabulate
 import arrow
 
 
@@ -81,8 +82,19 @@ class UsuarioService:
         if not usuarios:
             print("Nenhum usuário cadastrado.")
             return
-        for usuario in usuarios:
-            print(usuario)
+        rows = [(u.nome, u.email) for u in usuarios]
+        print(tabulate(rows, headers=["Nome", "E-mail"], tablefmt="rounded_outline"))
+
+    def login(self) -> None:
+        email = input("E-mail: ")
+        senha = input("Senha: ")
+        try:
+            if self.dao.login(email, senha):
+                print("Login realizado com sucesso. Bem vindo!")
+            else:
+                print("E-mail ou senha incorretos.")
+        except OperationalError as e:
+            print(f"Erro ao acessar o banco de dados: {e}")
 
 
 class UsuarioDAO:
