@@ -86,6 +86,9 @@ class PasswordService:
         if simbolos:
             mensagens.append("pelo menos um símbolo")
             valida = valida and (re.search(r'\W', senha) is not None)
+            if simbolos:
+                mensagens.append("pelo menos um símbolo")
+                valida = valida and (re.search(r'\W', senha) is not None)
 
         mensagem = "Sua senha deve conter " + ", ".join(mensagens) + "."
         return valida, mensagem
